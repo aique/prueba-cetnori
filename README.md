@@ -25,3 +25,6 @@
     </VirtualHost>
 
     ```
+    
+### Descarcar las dependencias
+Mediante línea de comandos nos ubicamos dentro de la carpeta `server` del proyecto y ejecutamos `composer install`.
