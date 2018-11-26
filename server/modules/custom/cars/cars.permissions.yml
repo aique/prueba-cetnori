@@ -1,0 +1,19 @@
+add car entities:
+  title: 'Create new Car entities'
+
+administer car entities:
+  title: 'Administer Car entities'
+  description: 'Allow to access the administration form to configure Car entities.'
+  restrict access: true
+
+delete car entities:
+  title: 'Delete Car entities'
+
+edit car entities:
+  title: 'Edit Car entities'
+
+view published car entities:
+  title: 'View published Car entities'
+
+view unpublished car entities:
+  title: 'View unpublished Car entities'

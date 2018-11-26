@@ -1,0 +1,22 @@
+{#
+/**
+ * @file car.html.twig
+ * Default theme implementation to present Car data.
+ *
+ * This template is used when viewing Car pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_car()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('car') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>
