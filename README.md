@@ -25,7 +25,7 @@
     </VirtualHost>
 
     ```
-    
+
 ### Descarcar las dependencias
 Mediante línea de comandos nos ubicamos dentro de la carpeta `server` del proyecto y ejecutamos `composer install`.
 
@@ -34,3 +34,9 @@ Será necesario crear una base de datos para el proyecto y guardar los datos de 
 
 ### Generar el fichero de configuración
 Accediendo a la url `http://prueba-irontec-server.com` será necesario seguir los pasos del wizard de Drupal para generar el fichero de configuración.
+
+### Dar de alta los módulos necesarios
+Dentro de la carpeta `server` introducimos las siguientes ordenes por línea de comandos:
+```
+doctrine module:install cars
+``` 
