@@ -9,8 +9,8 @@
 127.0.0.1       prueba-irontec-server.com
 ```
 - Creamos un host virtual en apache.
-    - Creamos el fichero de configuración en el directorio `/etc/apache2/sites-available`
-    - Editamos el fichero con el siguiente contenido
+    - Creamos el fichero de configuración en el directorio `/etc/apache2/sites-available`.
+    - Editamos el fichero con el siguiente contenido:
     ```
     <VirtualHost *:80>    
             ServerName prueba-irontec-server.com
@@ -28,3 +28,9 @@
     
 ### Descarcar las dependencias
 Mediante línea de comandos nos ubicamos dentro de la carpeta `server` del proyecto y ejecutamos `composer install`.
+
+### Crear una base de datos
+Será necesario crear una base de datos para el proyecto y guardar los datos de acceso para el siguiente paso.
+
+### Generar el fichero de configuración
+Accediendo a la url `http://prueba-irontec-server.com` será necesario seguir los pasos del wizard de Drupal para generar el fichero de configuración.

@@ -4,6 +4,7 @@ description: 'Cars'
 core: 8.x
 package: 'Custom'
 dependencies:
+  - image
   - options
   - restui
   - basic_auth
