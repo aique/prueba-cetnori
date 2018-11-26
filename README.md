@@ -43,7 +43,7 @@ doctrine module:install cars
 La versión recomendada del módulo `RestUI` es `8.x-1.16`.
 
 ### Activar el servicio REST
-Accediendo a la url `http://prueba-irontec-server.com` y desde la opción de menú Administración > Web Services > REST, activamos la opción `Cars resource` que se encuentra en el listado con las siguientes opciones:
+Accediendo a la url `http://prueba-irontec-server.com` y desde la opción de menú `Administración > Web Services > REST`, activamos la opción `Cars resource` que se encuentra en el listado con las siguientes opciones:
 - Methods: GET
 - Accepted request formats: json
 - Authentication providers: basic_auth
