@@ -15,23 +15,47 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  *   }
  * )
  */
-class CarsResource extends ResourceBase {
+class CarsResource extends ResourceBase
+{
 
-  public function get() {
-      $carIds = \Drupal::entityQuery('car')->execute();
-      $cars = Car::loadMultiple($carIds);
+    const CARS_LIST_CACHE_KEY = 'cars_list';
 
-      return new JsonResponse($this->getJson($cars));
-  }
+    public function get()
+    {
+        if ($cacheCarList = $this->getCarListFromCache()) {
+            $cars = $cacheCarList->data;
+        } else {
+            $cars = $this->queryCarListFromDB();
+            $this->storeInCache($cars);
+        }
 
-  private function getJson(array $cars) {
-      $json = [];
+        return new JsonResponse($this->getJson($cars));
+    }
 
-      foreach ($cars as $car) {
-          $json[] = $car->jsonSerialize();
-      }
+    private function getCarListFromCache() {
+        return \Drupal::cache()->get(self::CARS_LIST_CACHE_KEY);
+    }
 
-      return $json;
-  }
+    private function storeInCache(array $cars) {
+        \Drupal::cache()->set(self::CARS_LIST_CACHE_KEY, $cars);
+    }
+
+    private function queryCarListFromDB() {
+        $carIds = \Drupal::entityQuery('car')->execute();
+        $cars = Car::loadMultiple($carIds);
+
+        return $cars;
+    }
+
+    private function getJson(array $cars)
+    {
+        $json = [];
+
+        foreach ($cars as $car) {
+            $json[] = $car->jsonSerialize();
+        }
+
+        return $json;
+    }
 
 }

@@ -2,6 +2,7 @@
 
 namespace Drupal\cars\Entity;
 
+use Drupal\cars\Plugin\rest\resource\CarsResource;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
@@ -68,6 +69,12 @@ class Car extends ContentEntityBase implements CarInterface, \JsonSerializable
         $values += [
             'user_id' => \Drupal::currentUser()->id(),
         ];
+    }
+
+    public static function postDelete(EntityStorageInterface $storage, array $entities)
+    {
+        parent::postDelete($storage, $entities);
+        \Drupal::cache()->delete(CarsResource::CARS_LIST_CACHE_KEY); // limpia caché al eliminar un elemento
     }
 
     /**
@@ -143,7 +150,8 @@ class Car extends ContentEntityBase implements CarInterface, \JsonSerializable
         return $this->get('plate')->value;
     }
 
-    public function getColor() {
+    public function getColor()
+    {
         return $this->get('color')->value;
     }
 
@@ -163,6 +171,13 @@ class Car extends ContentEntityBase implements CarInterface, \JsonSerializable
         }
 
         return $this->get('picture')->getValue();
+    }
+
+    public function setChangedTime($timestamp)
+    {
+        $this->set('changed', $timestamp);
+        \Drupal::cache()->delete(CarsResource::CARS_LIST_CACHE_KEY); // limpia caché al crear/editar un elemento
+        return $this;
     }
 
     /**
@@ -199,8 +214,8 @@ class Car extends ContentEntityBase implements CarInterface, \JsonSerializable
             ->setRevisionable(false)
             ->setRequired(true);
 
-        $fields['color'] = BaseFieldDefinition::create('list_string') // TODO reducir el tamaño del campo en base de datos para un campo list_string
-            ->setLabel(t('Color'))
+        $fields['color'] = BaseFieldDefinition::create('list_string')// TODO reducir el tamaño del campo en base de datos para un campo list_string
+        ->setLabel(t('Color'))
             ->setSettings([
                 'allowed_values' => ['white' => 'White', 'gray' => 'Gray', 'red' => 'Red'],
             ])
