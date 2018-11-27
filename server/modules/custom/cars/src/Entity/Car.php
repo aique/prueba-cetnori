@@ -319,8 +319,8 @@ class Car extends ContentEntityBase implements CarInterface, \JsonSerializable
     {
         return [
             'plate' => $this->getPlate(),
-            'color' => $this->getColor(),
-            'kilometers' => $this->getKilometers(),
+            'color' => ucfirst($this->getColor()),
+            'kilometers' => number_format($this->getKilometers(), 0, ',', '.'),
             'owner' => $this->getOwner()->getDisplayName(),
             'picture' => $this->getPicture(),
         ];
