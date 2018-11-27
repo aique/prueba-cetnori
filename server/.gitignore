@@ -41,6 +41,5 @@ sites/simpletest
 # Ignore SimpleTest multi-site environment.
 # simpletest
 
-.idea
 *.sql
 modules/contrib

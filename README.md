@@ -49,4 +49,34 @@ Accediendo a la url `http://prueba-irontec-server.com` y desde la opción de men
 - Authentication providers: basic_auth
 
 ### Insertar datos de prueba
-La inserción de datos se realizará mediante el formulario que se encuentra en `http://prueba-irontec-server.com/admin/structure/car/add`. 
+La inserción de datos se realizará mediante el formulario que se encuentra en `http://prueba-irontec-server.com/admin/structure/car/add`.
+
+## Instalación del cliente
+
+### Creación de un host virtual
+
+- Creamos un dominio en el fichero `/etc/hosts` apuntando a nuestro equipo local.
+```
+127.0.0.1       prueba-irontec-client.com
+```
+- Creamos un host virtual en apache.
+    - Creamos el fichero de configuración en el directorio `/etc/apache2/sites-available`.
+    - Editamos el fichero con el siguiente contenido:
+    ```
+    <VirtualHost *:80>    
+            ServerName prueba-irontec-client.com
+            DocumentRoot /home/aique/Projects/prueba-irontec/client
+            <Directory /home/aique/Projects/prueba-irontec/client>
+                    Options FollowSymLinks Includes
+                    AllowOverride All
+                    Require all granted
+            </Directory>
+            ErrorLog ${APACHE_LOG_DIR}/prueba-irontec-client-error.log
+            CustomLog ${APACHE_LOG_DIR}/prueba-irontec-client-access.log combined
+    </VirtualHost>
+
+    ```
+    
+## Ejecución de la prueba
+
+Llegado este punto ya se puede acceder al cliente mediante la url `http://prueba-irontec-client.com` para consultar los datos que se han introducido en el servidor.
