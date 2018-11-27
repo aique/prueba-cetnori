@@ -75,7 +75,7 @@ function createCarRow(car) {
 function getImage(url) {
     var imageLink = $('<a></a>')
         .attr('href', url)
-        .attr('target', '_balnk');
+        .attr('target', '_blank');
 
     var image = $('<img />')
         .attr('src', url)
