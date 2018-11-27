@@ -1,3 +1,11 @@
+h1 {
+    margin-bottom: 30px;
+}
+
 #rest-service-response {
     display: inline-block;
+}
+
+#rest-service-response td {
+    vertical-align: middle;
 }
