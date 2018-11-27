@@ -44,9 +44,12 @@ La versión recomendada del módulo `RestUI` es `8.x-1.16`.
 
 ### Activar el servicio REST
 Accediendo a la url `http://prueba-irontec-server.com` y desde la opción de menú `Administración > Web Services > REST`, activamos la opción `Cars resource` que se encuentra en el listado con las siguientes opciones:
+
 - Methods: GET
 - Accepted request formats: json
 - Authentication providers: basic_auth
+
+Una vez hecho esto, vamos a permitir el acceso público al servicio habilitando la opción `Anonymous user` del registro `Access GET on Cars resource resource` que aparece en la tabla dentro de la url `http://prueba-irontec-server.com/admin/people/permissions`.
 
 ### Insertar datos de prueba
 La inserción de datos se realizará mediante el formulario que se encuentra en `http://prueba-irontec-server.com/admin/structure/car/add`.

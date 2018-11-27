@@ -34,10 +34,10 @@ parameters:
     - webcal
     - rtsp
   cors.config:
-    enabled: false
-    allowedHeaders: []
-    allowedMethods: []
-    allowedOrigins: ['*']
+    enabled: true
+    allowedHeaders: ['content-type']
+    allowedMethods: ['GET']
+    allowedOrigins: ['http://prueba-irontec-client.com']
     exposedHeaders: false
     maxAge: false
     supportsCredentials: false
