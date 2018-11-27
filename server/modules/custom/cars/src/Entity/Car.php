@@ -173,7 +173,7 @@ class Car extends ContentEntityBase implements CarInterface, \JsonSerializable
         $fields = parent::baseFieldDefinitions($entity_type);
 
         $fields['plate'] = BaseFieldDefinition::create('string')
-            ->setLabel(t('Matrícula'))
+            ->setLabel(t('Plate number'))
             ->addConstraint('UniqueField')
             ->setSetting('max_length', 8)
             ->setPropertyConstraints('value', array(
@@ -202,7 +202,7 @@ class Car extends ContentEntityBase implements CarInterface, \JsonSerializable
         $fields['color'] = BaseFieldDefinition::create('list_string') // TODO reducir el tamaño del campo en base de datos para un campo list_string
             ->setLabel(t('Color'))
             ->setSettings([
-                'allowed_values' => ['white' => 'Blanco', 'gray' => 'Gris', 'red' => 'Rojo'],
+                'allowed_values' => ['white' => 'White', 'gray' => 'Gray', 'red' => 'Red'],
             ])
             ->setDisplayOptions('view', [
                 'label' => 'color',
@@ -219,7 +219,7 @@ class Car extends ContentEntityBase implements CarInterface, \JsonSerializable
             ->setRequired(true);
 
         $fields['kilometers'] = BaseFieldDefinition::create('integer')
-            ->setLabel(t('Kilómetros'))
+            ->setLabel(t('Kilometers'))
             ->setSetting('min', 0)
             ->setDisplayOptions('view', [
                 'label' => 'kilometers',
@@ -261,7 +261,7 @@ class Car extends ContentEntityBase implements CarInterface, \JsonSerializable
             ->setRequired(true);
 
         $fields['picture'] = BaseFieldDefinition::create('image')
-            ->setLabel(t('Imagen'))
+            ->setLabel(t('Picture'))
             ->setSettings([
                 'file_directory' => 'img',
                 'alt_field_required' => false,
