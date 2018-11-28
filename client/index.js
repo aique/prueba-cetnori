@@ -12,6 +12,9 @@ function parseConfigFile() {
     $.getJSON('config.json', function(configJsonData) {
         _config = configJsonData;
         makeServiceCall();
+    })
+    .fail(function() {
+        showAlert('danger', 'No config file found. Follow the README instructions.');
     });
 }
 
