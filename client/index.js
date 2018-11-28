@@ -28,7 +28,7 @@ function makeServiceCall() {
         printServiceResponse(cars)
     })
     .fail(function() {
-        showError('Service unavailable');
+        showAlert('danger', 'Service unavailable');
     });
 }
 
@@ -40,16 +40,25 @@ function generateBasicAuthToken() {
 }
 
 function printServiceResponse(cars) {
-    var responseLayout = $('#rest-service-response');
+    if (cars.length > 0) {
+        printCarsTable(cars);
+    } else {
+        showAlert('warning', 'No cars found');
+    }
+}
 
-    responseLayout.html('');
+function printCarsTable(cars) {
+    var responseLayout = getEmptyResponseLayout();
+    responseLayout.append(getCarsTable(cars));
+}
 
+function getCarsTable(cars) {
     var table = ($('<table></table>').addClass('table'));
 
     table.append(createCarTableHeader());
     table.append(createCarTableBody(cars));
 
-    responseLayout.append(table);
+    return table;
 }
 
 function createCarTableHeader() {
@@ -96,11 +105,16 @@ function getImage(url) {
     return imageLink;
 }
 
-function showError(errorMsg) {
-    var responseLayout = $('#rest-service-response');
+function showAlert(alertClass, msg) {
+    var responseLayout = getEmptyResponseLayout();
 
-    responseLayout.html('');
     responseLayout.append($('<p></p>')
-        .addClass("alert alert-danger")
-        .html(errorMsg));
+        .addClass('alert alert-' + alertClass)
+        .html(msg));
+}
+
+function getEmptyResponseLayout() {
+    var responseLayout = $('#rest-service-response');
+    responseLayout.html('');
+    return responseLayout;
 }

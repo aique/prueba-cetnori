@@ -1,5 +1,5 @@
 {
-  "url": "http://prueba-irontec-server.com/api/cars?_format=json",
+  "url": "https://prueba-irontec-server.com/api/cars?_format=json",
   "username": "username",
   "password": "password"
 }

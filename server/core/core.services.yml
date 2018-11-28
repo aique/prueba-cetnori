@@ -37,7 +37,7 @@ parameters:
     enabled: true
     allowedHeaders: ['content-type', 'authorization']
     allowedMethods: ['GET']
-    allowedOrigins: ['http://prueba-irontec-client.com']
+    allowedOrigins: ['https://prueba-irontec-client.com']
     exposedHeaders: false
     maxAge: false
     supportsCredentials: false

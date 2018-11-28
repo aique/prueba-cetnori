@@ -10,19 +10,39 @@
 ```
 - Creamos un host virtual en apache.
     - Creamos el fichero de configuración en el directorio `/etc/apache2/sites-available`.
-    - Editamos el fichero con el siguiente contenido:
+    - Generamos los certificados necesario para utilizar SSL, ya que desde el cliente se enviarán los datos de usuario y esta operación ha de realizarse a través de un canal seguro:
+        - Mediante el comando `sudo mkdir /etc/apache2/ssl` se creará el directorio que contendrá los certificados.
+        - Los certificados se generarán con la instrucción `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt`.
+    - Editamos el fichero con el siguiente contenido (realizar las modificaciones pertinentes):
     ```
-    <VirtualHost *:80>    
+    <IfModule mod_ssl.c>
+        <VirtualHost _default_:443>
             ServerName prueba-irontec-server.com
-            DocumentRoot /home/aique/Projects/prueba-irontec/server
+            DocumentRoot {project-path}/prueba-irontec/server
+    
             <Directory /home/aique/Projects/prueba-irontec/server>
-                    Options FollowSymLinks Includes
-                    AllowOverride All
-                    Require all granted
+                Options FollowSymLinks Includes
+                AllowOverride All
+                Require all granted
             </Directory>
+    
             ErrorLog ${APACHE_LOG_DIR}/prueba-irontec-server-error.log
             CustomLog ${APACHE_LOG_DIR}/prueba-irontec-server-access.log combined
-    </VirtualHost>
+            SSLEngine on
+            SSLCertificateFile /etc/apache2/ssl/apache.crt
+            SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+            <FilesMatch "\.(cgi|shtml|phtml|php)$">
+                            SSLOptions +StdEnvVars
+            </FilesMatch>
+            <Directory /usr/lib/cgi-bin>
+                            SSLOptions +StdEnvVars
+            </Directory>
+            BrowserMatch "MSIE [2-6]" \
+                            nokeepalive ssl-unclean-shutdown \
+                            downgrade-1.0 force-response-1.0
+            BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+        </VirtualHost>
+    </IfModule>
 
     ```
 
@@ -33,7 +53,7 @@ Mediante línea de comandos nos ubicamos dentro de la carpeta `server` del proye
 Será necesario crear una base de datos para el proyecto y guardar los datos de acceso para el siguiente paso.
 
 ### Generar el fichero de configuración
-Accediendo a la url `http://prueba-irontec-server.com` será necesario seguir los pasos del wizard de Drupal para generar el fichero de configuración.
+Accediendo a la url `https://prueba-irontec-server.com` será necesario seguir los pasos del wizard de Drupal para generar el fichero de configuración.
 
 ### Dar de alta los módulos necesarios
 Dentro de la carpeta `server` introducimos las siguientes ordenes por línea de comandos:
@@ -43,16 +63,16 @@ doctrine module:install cars
 La versión recomendada del módulo `RestUI` es `8.x-1.16`.
 
 ### Activar el servicio REST
-Accediendo a la url `http://prueba-irontec-server.com` y desde la opción de menú `Administración > Web Services > REST`, activamos la opción `Cars resource` que se encuentra en el listado con las siguientes opciones:
+Accediendo a la url `https://prueba-irontec-server.com` y desde la opción de menú `Administración > Web Services > REST`, activamos la opción `Cars resource` que se encuentra en el listado con las siguientes opciones:
 
 - Methods: GET
 - Accepted request formats: json
 - Authentication providers: basic_auth
 
-Una vez hecho esto, vamos a permitir el acceso de usuarios logueados al servicio habilitando la opción `Authenticated  user` del registro `Access GET on Cars resource resource` que aparece en la tabla dentro de la url `http://prueba-irontec-server.com/admin/people/permissions`.
+Una vez hecho esto, vamos a permitir el acceso de usuarios logueados al servicio habilitando la opción `Authenticated  user` del registro `Access GET on Cars resource resource` que aparece en la tabla dentro de la url `https://prueba-irontec-server.com/admin/people/permissions`.
 
 ### Insertar datos de prueba
-La inserción de datos se realizará mediante el formulario que se encuentra en `http://prueba-irontec-server.com/admin/structure/car/add`.
+La inserción de datos se realizará mediante el formulario que se encuentra en `https://prueba-irontec-server.com/admin/structure/car/add`.
 
 ## Instalación del cliente
 
@@ -64,19 +84,37 @@ La inserción de datos se realizará mediante el formulario que se encuentra en 
 ```
 - Creamos un host virtual en apache.
     - Creamos el fichero de configuración en el directorio `/etc/apache2/sites-available`.
-    - Editamos el fichero con el siguiente contenido:
+    - Editamos el fichero con el siguiente contenido (realizar las modificaciones pertinentes):
     ```
-    <VirtualHost *:80>    
+    <IfModule mod_ssl.c>
+        <VirtualHost _default_:443>
             ServerName prueba-irontec-client.com
-            DocumentRoot /home/aique/Projects/prueba-irontec/client
+            DocumentRoot {project-path}/prueba-irontec/client
+    
             <Directory /home/aique/Projects/prueba-irontec/client>
-                    Options FollowSymLinks Includes
-                    AllowOverride All
-                    Require all granted
+                Options FollowSymLinks Includes
+                AllowOverride All
+                Require all granted
             </Directory>
+    
             ErrorLog ${APACHE_LOG_DIR}/prueba-irontec-client-error.log
             CustomLog ${APACHE_LOG_DIR}/prueba-irontec-client-access.log combined
-    </VirtualHost>
+            SSLEngine on
+            SSLCertificateFile /etc/apache2/ssl/apache.crt
+            SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+            <FilesMatch "\.(cgi|shtml|phtml|php)$">
+                            SSLOptions +StdEnvVars
+            </FilesMatch>
+            <Directory /usr/lib/cgi-bin>
+                            SSLOptions +StdEnvVars
+            </Directory>
+            BrowserMatch "MSIE [2-6]" \
+                            nokeepalive ssl-unclean-shutdown \
+                            downgrade-1.0 force-response-1.0
+            BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+        </VirtualHost>
+    </IfModule>
+
 
     ```
     
@@ -86,4 +124,4 @@ Será necesario copiar el fichero `example.config.json`, modificar el nombre y c
     
 ## Ejecución de la prueba
 
-Llegado este punto ya se puede acceder al cliente mediante la url `http://prueba-irontec-client.com` para consultar los datos que se han introducido en el servidor.
+Llegado este punto ya se puede acceder al cliente mediante la url `https://prueba-irontec-client.com` para consultar los datos que se han introducido en el servidor.
