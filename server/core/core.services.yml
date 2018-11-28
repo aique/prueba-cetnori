@@ -35,7 +35,7 @@ parameters:
     - rtsp
   cors.config:
     enabled: true
-    allowedHeaders: ['content-type']
+    allowedHeaders: ['content-type', 'authorization']
     allowedMethods: ['GET']
     allowedOrigins: ['http://prueba-irontec-client.com']
     exposedHeaders: false

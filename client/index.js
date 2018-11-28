@@ -19,7 +19,10 @@ function makeServiceCall() {
     $.ajax({
         method: 'GET',
         url: _config.url,
-        contentType: 'application/json'
+        contentType: 'application/json',
+        headers: {
+            "Authorization": generateBasicAuthToken()
+        },
     })
     .done(function(cars) {
         printServiceResponse(cars)
@@ -27,6 +30,13 @@ function makeServiceCall() {
     .fail(function() {
         showError('Service unavailable');
     });
+}
+
+function generateBasicAuthToken() {
+    var data = _config.username + ":" + _config.password;
+    var token = btoa(data);
+
+    return "Basic " + token;
 }
 
 function printServiceResponse(cars) {

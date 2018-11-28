@@ -49,7 +49,7 @@ Accediendo a la url `http://prueba-irontec-server.com` y desde la opción de men
 - Accepted request formats: json
 - Authentication providers: basic_auth
 
-Una vez hecho esto, vamos a permitir el acceso público al servicio habilitando la opción `Anonymous user` del registro `Access GET on Cars resource resource` que aparece en la tabla dentro de la url `http://prueba-irontec-server.com/admin/people/permissions`.
+Una vez hecho esto, vamos a permitir el acceso de usuarios logueados al servicio habilitando la opción `Authenticated  user` del registro `Access GET on Cars resource resource` que aparece en la tabla dentro de la url `http://prueba-irontec-server.com/admin/people/permissions`.
 
 ### Insertar datos de prueba
 La inserción de datos se realizará mediante el formulario que se encuentra en `http://prueba-irontec-server.com/admin/structure/car/add`.
@@ -79,6 +79,10 @@ La inserción de datos se realizará mediante el formulario que se encuentra en 
     </VirtualHost>
 
     ```
+    
+### Creación del fichero de configuración
+
+Será necesario copiar el fichero `example.config.json`, modificar el nombre y contraseña del usuario creado durante la instalación de Drupal y guardarlo con el nombre `config.json`. 
     
 ## Ejecución de la prueba
 
