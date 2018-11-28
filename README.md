@@ -125,3 +125,13 @@ Será necesario copiar el fichero `example.config.json`, modificar el nombre y c
 ## Ejecución de la prueba
 
 Llegado este punto ya se puede acceder al cliente mediante la url `https://prueba-irontec-client.com` para consultar los datos que se han introducido en el servidor.
+
+## Screenshots
+
+Vista del detalle de un coche en el servidor (parece que el tema no se lleva bien con `https`...)
+
+![Cliente mostrando el listado de coches](https://raw.githubusercontent.com/aique/prueba-irontec/master/screenshots/irontec_server.png)
+
+Cliente mostrando el listado de coches
+
+![Cliente mostrando el listado de coches](https://raw.githubusercontent.com/aique/prueba-irontec/master/screenshots/irontec_client.png)
